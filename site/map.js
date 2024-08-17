@@ -4,7 +4,7 @@
     
     var map = L.map(mapId, {
         crs: L.CRS.Simple,
-        minZoom: -2,
+        minZoom: -3,
         maxZoom: 2,
     });
 
