@@ -1,10 +1,9 @@
 ﻿window.initializeMap = function (mapId, mapImageUrl, minx, miny, maxx, maxy, callback) {
-
     var mapBounds = [
         [miny, minx], // bottom-left
         [maxy, maxx]  // top-right
     ];
-    
+
     var map = L.map(mapId, {
         crs: L.CRS.Simple,
         minZoom: -3,
@@ -20,4 +19,11 @@
         console.log("Click coordinates: ", x, y); // Debug click coordinates
         callback.invokeMethodAsync('OnMapClick', x, y);
     });
+
+    window.addMarker = function (x, y) {
+        var marker = L.circle([y, x], {
+            color: 'red',
+            fillColor: '#f03',
+        }).addTo(map);
+    };
 };
