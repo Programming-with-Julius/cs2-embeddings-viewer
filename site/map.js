@@ -1,6 +1,9 @@
-﻿window.initializeMap = function (mapId, mapImageUrl, coords, callback) {
-    console.log("Initializing map with ID: " + mapId);
-    console.log("Map Image URL: " + mapImageUrl);
+﻿window.initializeMap = function (mapId, mapImageUrl, minx, miny, maxx, maxy, callback) {
+
+    var mapBounds = [
+        [miny, minx], // bottom-left
+        [maxy, maxx]  // top-right
+    ];
     
     var map = L.map(mapId, {
         crs: L.CRS.Simple,
@@ -8,10 +11,8 @@
         maxZoom: 2,
     });
 
-    var bounds = [[0, 0], [1000, 1000]]; // Adjust based on the map image size
-    var image = L.imageOverlay(mapImageUrl, bounds).addTo(map);
-
-    map.fitBounds(bounds);
+    var image = L.imageOverlay(mapImageUrl, mapBounds).addTo(map);
+    map.fitBounds(mapBounds);
 
     map.on('click', function (e) {
         var x = Math.round(e.latlng.lng);
