@@ -8,6 +8,7 @@
         crs: L.CRS.Simple,
         minZoom: -3,
         maxZoom: 2,
+        preferCanvas: false,
     });
 
     var image = L.imageOverlay(mapImageUrl, mapBounds).addTo(map);
