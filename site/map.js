@@ -22,10 +22,10 @@
     });
 
     window.addMarkersAndPolylines = function (xGuess, yGuess, xAi, yAi, xReal, yReal) {
-        // Add markers
-        var userMarker = L.circle([yGuess, xGuess], { color: 'blue', fillColor: 'blue' }).addTo(map);
-        var aiMarker = L.circle([yAi, xAi], { color: 'red', fillColor: 'red' }).addTo(map);
-        var realMarker = L.circle([yReal, xReal], { color: 'green', fillColor: 'green' }).addTo(map);
+        // Add invariant size markers
+        addInvariantMarker(xGuess, yGuess, 'blue');
+        addInvariantMarker(xAi, yAi, 'red');
+        addInvariantMarker(xReal, yReal, 'green');
 
         // Draw polylines
         var userToReal = new L.Polyline([[yGuess, xGuess], [yReal, xReal]], {
@@ -66,6 +66,17 @@
             .setLatLng(aiMidpoint)
             .addTo(map);
     };
+
+    function addInvariantMarker(x, y, color) {
+        var marker = L.marker([y, x], {
+            icon: L.divIcon({
+                className: 'custom-marker',
+                html: `<div style="background-color: ${color}; width: 15px; height: 15px; border-radius: 50%; border: 2px solid ${color};"></div>`,
+                iconSize: [15, 15], // This keeps the size invariant
+                iconAnchor: [7.5, 7.5] // Center the icon
+            })
+        }).addTo(map);
+    }
 
     function calculateDistance(x1, y1, x2, y2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
