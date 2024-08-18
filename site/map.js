@@ -8,7 +8,7 @@
         zoomAnimation: true
     });
 
-    var existingImage = null;
+    var layerGroup = L.layerGroup().addTo(map); // Create a layer group for the image, markers, and polylines
 
     window.loadMapImage = function (mapImageUrl, minx, miny, maxx, maxy) {
         var mapBounds = [
@@ -16,15 +16,13 @@
             [maxy, maxx]  // top-right
         ];
 
-        if (existingImage != null && map.hasLayer(existingImage)) {
-            map.removeLayer(existingImage);
-        }
+        // Clear all existing layers (image overlay, markers, polylines)
+        layerGroup.clearLayers();
 
-        existingImage = L.imageOverlay(mapImageUrl, mapBounds);
-        existingImage.addTo(map);
+        // Add the new image overlay to the layer group
+        var imageOverlay = L.imageOverlay(mapImageUrl, mapBounds).addTo(layerGroup);
         map.fitBounds(mapBounds);
     }
-
 
     map.on('click', function (e) {
         var x = Math.round(e.latlng.lng);
@@ -39,20 +37,20 @@
         addInvariantMarkerWithTooltip(xAi, yAi, 'red', 'AI');
         addInvariantMarkerWithTooltip(xReal, yReal, 'green', 'Real');
 
-        // Draw polylines
+        // Draw polylines and add them to the layer group
         var userToReal = new L.Polyline([[yGuess, xGuess], [yReal, xReal]], {
             color: 'blue',
             weight: 3,
             opacity: 0.5,
             smoothFactor: 1
-        }).addTo(map);
+        }).addTo(layerGroup);
 
         var aiToReal = new L.Polyline([[yAi, xAi], [yReal, xReal]], {
             color: 'red',
             weight: 3,
             opacity: 0.5,
             smoothFactor: 1
-        }).addTo(map);
+        }).addTo(layerGroup);
 
         // Calculate the center and zoom level to fit the bounds
         var group = new L.featureGroup([
@@ -80,7 +78,7 @@
                 iconSize: [15, 15], // This keeps the size invariant
                 iconAnchor: [7.5, 7.5] // Center the icon
             })
-        }).addTo(map);
+        }).addTo(layerGroup); // Add the marker to the layer group
 
         // Add a tooltip below the marker
         marker.bindTooltip(label, {
