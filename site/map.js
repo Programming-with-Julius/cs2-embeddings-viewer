@@ -21,10 +21,10 @@
         callback.invokeMethodAsync('OnMapClick', x, y);
     });
 
-    window.addMarker = function (x, y) {
+    window.addMarker = function (x, y, color) {
         var marker = L.circle([y, x], {
-            color: 'red',
-            fillColor: '#f03',
+            color: color,
+            fillColor: color,
         }).addTo(map);
     };
 };
