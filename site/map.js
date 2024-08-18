@@ -75,7 +75,7 @@
         // Animate to the calculated view with custom duration
         map.flyTo(center, zoom, {
             animate: true,
-            duration: 2.0  // Duration in seconds
+            duration: 0.75  // Duration in seconds
         });
     };
 
