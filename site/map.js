@@ -21,6 +21,7 @@
 
         // Add the new image overlay to the layer group
         var imageOverlay = L.imageOverlay(mapImageUrl, mapBounds).addTo(layerGroup);
+        map.invalidateSize();
         map.fitBounds(mapBounds);
     }
 
