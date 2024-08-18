@@ -19,15 +19,16 @@
 
         // Add the new image overlay to the layer group
         var imageOverlay = L.imageOverlay(mapImageUrl, mapBounds).addTo(layerGroup);
+        var zoomLevel = map.getBoundsZoom(mapBounds);
+        map.setZoom(zoomLevel);
+        map.fitBounds(mapBounds);
 
         // Delay the fitBounds and zoom adjustment slightly to ensure the image is fully loaded and map is resized
         setTimeout(function () {
             map.invalidateSize();
-            map.fitBounds(mapBounds);
-
-            // Ensure the map is zoomed in appropriately
             var zoomLevel = map.getBoundsZoom(mapBounds);
             map.setZoom(zoomLevel);
+            map.fitBounds(mapBounds);            
         }, 100); // You can adjust this delay if necessary
     }
 
