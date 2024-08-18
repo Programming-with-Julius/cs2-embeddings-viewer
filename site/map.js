@@ -23,10 +23,10 @@
     });
 
     window.addMarkersAndPolylines = function (xGuess, yGuess, xAi, yAi, xReal, yReal) {
-        // Add invariant size markers
-        addInvariantMarker(xGuess, yGuess, 'blue');
-        addInvariantMarker(xAi, yAi, 'red');
-        addInvariantMarker(xReal, yReal, 'green');
+        // Add invariant size markers with tooltips
+        addInvariantMarkerWithTooltip(xGuess, yGuess, 'blue', 'You');
+        addInvariantMarkerWithTooltip(xAi, yAi, 'red', 'AI');
+        addInvariantMarkerWithTooltip(xReal, yReal, 'green', 'Real');
 
         // Draw polylines
         var userToReal = new L.Polyline([[yGuess, xGuess], [yReal, xReal]], {
@@ -61,7 +61,7 @@
         });
     };
 
-    function addInvariantMarker(x, y, color) {
+    function addInvariantMarkerWithTooltip(x, y, color, label) {
         var marker = L.marker([y, x], {
             icon: L.divIcon({
                 className: 'custom-marker',
@@ -70,5 +70,13 @@
                 iconAnchor: [7.5, 7.5] // Center the icon
             })
         }).addTo(map);
+
+        // Add a tooltip below the marker
+        marker.bindTooltip(label, {
+            permanent: true,
+            direction: 'bottom',
+            offset: [0, 10], // Adjust the offset to position the label below the marker
+            className: 'distance-label'
+        }).openTooltip();
     }
 };
