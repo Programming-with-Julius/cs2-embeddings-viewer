@@ -9,6 +9,7 @@
         minZoom: -3,
         maxZoom: 2,
         preferCanvas: false,
+        zoomAnimation: true
     });
 
     var image = L.imageOverlay(mapImageUrl, mapBounds).addTo(map);
@@ -42,29 +43,22 @@
             smoothFactor: 1
         }).addTo(map);
 
-        // Calculate distances
-        var userDistance = calculateDistance(xGuess, yGuess, xReal, yReal);
-        var aiDistance = calculateDistance(xAi, yAi, xReal, yReal);
+        // Calculate the center and zoom level to fit the bounds
+        var group = new L.featureGroup([
+            L.marker([yGuess, xGuess]),
+            L.marker([yAi, yAi]),
+            L.marker([yReal, xReal])
+        ]);
 
-        // Display distances on the map
-        var userMidpoint = [(yGuess + yReal) / 2, (xGuess + xReal) / 2];
-        var aiMidpoint = [(yAi + yReal) / 2, (xAi + xReal) / 2];
+        var bounds = group.getBounds();
+        var center = bounds.getCenter();
+        var zoom = map.getBoundsZoom(bounds);
 
-        var userDistanceLabel = L.tooltip({
-            permanent: true,
-            direction: 'center',
-            className: 'distance-label'
-        }).setContent(userDistance.toFixed(2) + ' m')
-            .setLatLng(userMidpoint)
-            .addTo(map);
-
-        var aiDistanceLabel = L.tooltip({
-            permanent: true,
-            direction: 'center',
-            className: 'distance-label'
-        }).setContent(aiDistance.toFixed(2) + ' m')
-            .setLatLng(aiMidpoint)
-            .addTo(map);
+        // Animate to the calculated view with custom duration
+        map.flyTo(center, zoom, {
+            animate: true,
+            duration: 2.0  // Duration in seconds
+        });
     };
 
     function addInvariantMarker(x, y, color) {
@@ -76,9 +70,5 @@
                 iconAnchor: [7.5, 7.5] // Center the icon
             })
         }).addTo(map);
-    }
-
-    function calculateDistance(x1, y1, x2, y2) {
-        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 };
