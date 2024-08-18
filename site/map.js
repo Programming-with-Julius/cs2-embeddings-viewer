@@ -2,10 +2,8 @@
 
     var map = L.map(mapId, {
         crs: L.CRS.Simple,
-        minZoom: -3,
-        maxZoom: 2,
-        preferCanvas: false,
-        zoomAnimation: true
+        minZoom: -5,
+        maxZoom: 0,
     });
 
     var layerGroup = L.layerGroup().addTo(map); // Create a layer group for the image, markers, and polylines
