@@ -1,8 +1,4 @@
-﻿window.initializeMap = function (mapId, mapImageUrl, minx, miny, maxx, maxy, callback) {
-    var mapBounds = [
-        [miny, minx], // bottom-left
-        [maxy, maxx]  // top-right
-    ];
+﻿window.initializeMap = function (mapId, callback) {
 
     var map = L.map(mapId, {
         crs: L.CRS.Simple,
@@ -12,8 +8,23 @@
         zoomAnimation: true
     });
 
-    var image = L.imageOverlay(mapImageUrl, mapBounds).addTo(map);
-    map.fitBounds(mapBounds);
+    var existingImage = null;
+
+    window.loadMapImage = function (mapImageUrl, minx, miny, maxx, maxy) {
+        var mapBounds = [
+            [miny, minx], // bottom-left
+            [maxy, maxx]  // top-right
+        ];
+
+        if (existingImage != null && map.hasLayer(existingImage)) {
+            map.removeLayer(existingImage);
+        }
+
+        existingImage = L.imageOverlay(mapImageUrl, mapBounds);
+        existingImage.addTo(map);
+        map.fitBounds(mapBounds);
+    }
+
 
     map.on('click', function (e) {
         var x = Math.round(e.latlng.lng);
