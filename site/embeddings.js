@@ -4,6 +4,14 @@ const container = document.getElementById('threejs-container'); // Attach to spe
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+// Set the camera's position
+camera.position.set(72.47668130974937, 66.66374259366836, 5.5729928099521267);
+
+// Set the camera's rotation (Euler angles in radians)
+camera.rotation.set(2.9282309883834526, -0.08329763659969922, 3.13329729489135);
+
+
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 
