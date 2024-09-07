@@ -1,10 +1,14 @@
 ﻿const model_cp_name = "absurd-shadow-34_epoch_9"; // Model name without .pth extension
 
+const container = document.getElementById('threejs-container'); // Attach to specific element
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+
+// Append the renderer to the specific container
+container.appendChild(renderer.domElement);
 
 // Add PointerLockControls
 const controls = new THREE.PointerLockControls(camera, document.body);
