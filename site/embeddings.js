@@ -1,6 +1,9 @@
 ﻿const model_cp_name = "absurd-shadow-34_epoch_9"; // Model name without .pth extension
 
 const container = document.getElementById('threejs-container'); // Attach to specific element
+container.addEventListener('click', () => {
+    controls.lock();
+});
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -94,10 +97,5 @@ function animate() {
     move(); // Apply movement
     renderer.render(scene, camera);
 }
-
-// Click to lock the pointer and start controls
-document.addEventListener('click', () => {
-    controls.lock();
-});
 
 animate();
