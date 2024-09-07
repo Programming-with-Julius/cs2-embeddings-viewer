@@ -30,7 +30,7 @@ function loadImages() {
         .then(response => response.json())
         .then(data => {
             data.forEach(item => {
-                const imagePath = "/embeddings"+item.path;
+                const imagePath = "/embeddings" + item.path;
                 const x = parseFloat(item.x) * 25;
                 const y = parseFloat(item.y) * 25;
                 const z = parseFloat(item.z) * 25;
