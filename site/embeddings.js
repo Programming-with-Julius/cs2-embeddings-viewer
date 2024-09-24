@@ -14,7 +14,6 @@ camera.position.set(72.47668130974937, 66.66374259366836, 5.5729928099521267);
 // Set the camera's rotation (Euler angles in radians)
 camera.rotation.set(2.9282309883834526, -0.08329763659969922, 3.13329729489135);
 
-
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -32,6 +31,28 @@ scene.add(ambientLight);
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
 directionalLight.position.set(1, 1, 0).normalize();
 scene.add(directionalLight);
+
+// Fullscreen functionality
+document.addEventListener('keydown', (event) => {
+    if (event.code === 'KeyF') { // Check if the "F" key is pressed
+        if (!document.fullscreenElement) {
+            container.requestFullscreen(); // Enter fullscreen mode
+        } else {
+            document.exitFullscreen(); // Exit fullscreen mode
+        }
+    }
+});
+
+// Handle window resize and fullscreen change
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+// Listen to the resize event to adjust the renderer and camera
+window.addEventListener('resize', onWindowResize);
+
 
 // Function to load all images from the JSON file
 function loadImages() {
