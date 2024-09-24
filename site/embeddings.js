@@ -76,7 +76,11 @@ document.addEventListener('keyup', (event) => {
 });
 
 function move() {
-    const moveSpeed = 1;
+    let moveSpeed = 1; // Default speed
+
+    if (keyStates['ShiftLeft']) {
+        moveSpeed = 0.1; // Slow speed when holding shift
+    }
 
     if (keyStates['KeyW']) {
         controls.getObject().translateZ(-moveSpeed); // Move forward
