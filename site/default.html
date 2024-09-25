@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Embeddings - Default</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="threejs-container"></div>
+    <!-- Overlay elements -->
+    <div id="overlay-bottom-left">
+        <a href="https://www.youtube.com/@ProgrammingWithJulius" target="_blank">
+            <img src="youtube-icon.png" alt="YouTube Channel" width="50" height="50">
+        </a>
+    </div>
+    <div id="overlay-bottom-right">
+        <a href="multihead.html">Switch to multihead model</a><br>
+    </div>
+
+    <!-- Include Three.js and controls at the end of the body -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/PointerLockControls.js"></script>
+
+    <!-- Set model name -->
+    <script>
+        var model_cp_name = "absurd-shadow-34_epoch_9";
+    </script>
+    <!-- Include our own JS script -->
+    <script src="embeddings.js"></script>
+</body>
+</html>
