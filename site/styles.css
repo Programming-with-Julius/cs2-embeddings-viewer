@@ -31,13 +31,16 @@ a {
     text-decoration: none; /* Removes underline */
     outline: none; /* Removes any outline */
     color: white;
-    font-weight: bold;
 }
 
     a:focus, header a:hover {
         text-decoration: none; /* Ensure no underline appears on hover or focus */
         outline: none; /* Prevent purple outline when link is clicked */
     }
+
+.link-underline {
+    text-decoration: underline !important;
+}
 
 header h1 {
     margin: 0;
