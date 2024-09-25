@@ -27,19 +27,26 @@ header {
     max-width: 800px;
 }
 
-header h1 {
-    margin: 0;
-}
+    header h1 {
+        margin: 0;
+    }
 
     header a {
         display: flex;
         align-items: center;
+        text-decoration: none; /* Removes underline */
+        outline: none; /* Removes any outline */
     }
 
-header a img {
-    width: 50px;
-    height: 50px;
-}
+        header a:focus, header a:hover {
+            text-decoration: none; /* Ensure no underline appears on hover or focus */
+            outline: none; /* Prevent purple outline when link is clicked */
+        }
+
+        header a img {
+            width: 50px;
+            height: 50px;
+        }
 
 /* Main content */
 main {
@@ -60,13 +67,13 @@ main {
     text-align: center;
 }
 
-.card h2 {
-    margin-top: 0;
-}
+    .card h2 {
+        margin-top: 0;
+    }
 
-.card p {
-    color: #bbbbbb;
-}
+    .card p {
+        color: #bbbbbb;
+    }
 
 /* Make the whole card clickable */
 .card-link {
@@ -105,9 +112,9 @@ main {
     border-radius: 4px;
 }
 
-.button:hover {
-    background-color: #555555;
-}
+    .button:hover {
+        background-color: #555555;
+    }
 
 /* Existing styles for threejs-container and overlays */
 
