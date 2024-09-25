@@ -1,4 +1,6 @@
-﻿const model_cp_name = "absurd-shadow-34_epoch_9"; // Model name without .pth extension
+﻿const model_cp_name = "noble-water-17_epoch_4"; // Model name without .pth extension
+//const model_cp_name = "absurd-shadow-34_epoch_9"; // Model name without .pth extension
+
 
 const container = document.getElementById('threejs-container'); // Attach to specific element
 container.addEventListener('click', () => {
@@ -66,7 +68,7 @@ function loadImages() {
         .then(response => response.json())
         .then(data => {
             data.forEach(item => {
-                const imagePath = "/embeddings" + item.path;
+                const imagePath = "/embeddings/images_" + model_cp_name + "/" + item.path;
                 const x = parseFloat(item.x) * 25;
                 const y = parseFloat(item.y) * 25;
                 const z = parseFloat(item.z) * 25;
