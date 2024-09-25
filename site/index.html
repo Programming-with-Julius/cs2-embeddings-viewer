@@ -20,14 +20,17 @@
         <!-- Short introduction text -->
         <section class="intro">
             <p>
-                These are UMAP embeddings visualized in 3D space, representing activations from a trained neural network. The network predicts the in-game location (XYZ) based on CS2 screenshots. The activations from the penultimate layer are reduced to 3D to create these maps.
+                This website hosts <a href="https://www.youtube.com/watch?v=o_cAOa5fMhE">UMAP</a> embeddings visualized in 3D space, representing activations from a trained neural network. The network predicts the in-game location (XYZ) based on Counter-Strike 2 screenshots. The activations from the penultimate layer are reduced to 3D to create the maps.
             </p>
             <p>
                 The multihead model also predicts which map the screenshot is from, resulting in a dramatically different embedding space. The default model only predicts the in-game location.
             </p>
 
             <p class="text-warning">
-                The 3D visualization is not optimized for mobile devices. For the best experience, use a desktop or laptop computer.
+                The visualization loads 10.000 images and you may experience lag while the images are loading. For the multihead model in particular, it is necessary to look at each cluster at least once before the images are cached and the visualization becomes smooth.
+                <br />
+                <br />
+                This website is not functional on mobile devices. For the best experience, use a desktop or laptop computer.
             </p>
         </section>
 
