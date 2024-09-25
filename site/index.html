@@ -13,16 +13,39 @@
             <h1>Embeddings Viewer</h1>
             <a href="https://www.youtube.com/@ProgrammingWithJulius" target="_blank">
                 <img src="youtube-icon.png" alt="YouTube Channel">
+                <span class="youtube-channel-name">Programming with Julius</span>
             </a>
         </header>
+
+        <!-- Short introduction text -->
+        <section class="intro">
+            <p>
+                These are UMAP embeddings visualized in 3D space, representing activations from a trained neural network. The network predicts the in-game location (XYZ) based on CS2 screenshots. The activations from the penultimate layer are reduced to 3D to create these maps.
+            </p>
+        </section>
+
+        <!-- Instructions -->
+        <section class="instructions">
+            <h2>Controls:</h2>
+            <ul>
+                <li>Click to enter control mode</li>
+                <li>Press <strong>Esc</strong> to exit control mode</li>
+                <li><strong>WASD + Mouse</strong> to move</li>
+                <li>Hold <strong>Shift</strong> to go slower</li>
+            </ul>
+        </section>
+
+        <!-- Cards with preview images -->
         <main>
             <div class="card">
                 <h2>Multihead Model</h2>
+                <img src="multihead-preview.png" alt="Multihead Model Preview" class="model-preview">
                 <p>Explore the embeddings of the multihead model.</p>
                 <a href="multihead.html" class="button">View Multihead Model</a>
             </div>
             <div class="card">
                 <h2>Default Model</h2>
+                <img src="default-preview.png" alt="Default Model Preview" class="model-preview">
                 <p>Explore the embeddings of the default model.</p>
                 <a href="default.html" class="button">View Default Model</a>
             </div>

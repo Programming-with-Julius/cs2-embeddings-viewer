@@ -117,3 +117,46 @@ main {
     width: 50px;
     height: 50px;
 }
+
+.youtube-channel-name {
+    color: white;
+    font-size: 18px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+/* Introduction text */
+.intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 20px 0;
+}
+
+/* Instructions */
+.instructions {
+    text-align: center;
+    max-width: 800px;
+    margin: 20px 0;
+}
+
+    .instructions h2 {
+        margin-bottom: 10px;
+    }
+
+    .instructions ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .instructions ul li {
+            margin: 5px 0;
+        }
+
+/* Cards with preview images */
+.model-preview {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
