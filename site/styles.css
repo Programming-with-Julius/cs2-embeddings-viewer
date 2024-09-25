@@ -68,6 +68,22 @@ main {
     color: #bbbbbb;
 }
 
+/* Make the whole card clickable */
+.card-link {
+    text-decoration: none; /* Remove underline from the link */
+    color: inherit; /* Inherit text color so it doesn't change */
+    display: block; /* Make the entire link block-level */
+}
+
+    .card-link .card {
+        transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
+    }
+
+        .card-link .card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Add shadow on hover */
+        }
+
+
 .overlay-link {
     color: white;
     font-size: 18px;
