@@ -62,6 +62,17 @@ main {
     color: #bbbbbb;
 }
 
+.overlay-link {
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    margin-left: 10px; /* Add space between buttons */
+}
+
+    .overlay-link:hover {
+        color: #dddddd; /* Slight color change on hover */
+    }
+
 .button {
     display: inline-block;
     margin-top: 20px;
