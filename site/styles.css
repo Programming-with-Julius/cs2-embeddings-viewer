@@ -166,3 +166,14 @@ main {
     border-radius: 8px;
     margin-bottom: 15px;
 }
+
+.text-warning {
+    color: #ff4c4c; /* Red color */
+    font-weight: bold; /* Make the text fatter */
+    font-size: 1.1em; /* Slightly larger font size */
+    margin-top: 10px; /* Add some space above */
+    text-align: center; /* Center the text */
+    background-color: #2a2a2a; /* Optional: add a background to make it stand out */
+    padding: 10px; /* Optional: add padding for better readability */
+    border-radius: 4px; /* Optional: rounded corners for visual effect */
+}

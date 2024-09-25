@@ -22,6 +22,13 @@
             <p>
                 These are UMAP embeddings visualized in 3D space, representing activations from a trained neural network. The network predicts the in-game location (XYZ) based on CS2 screenshots. The activations from the penultimate layer are reduced to 3D to create these maps.
             </p>
+            <p>
+                The multihead model also predicts which map the screenshot is from, resulting in a dramatically different embedding space. The default model only predicts the in-game location.
+            </p>
+
+            <p class="text-warning">
+                The 3D visualization is not optimized for mobile devices. For the best experience, use a desktop or laptop computer.
+            </p>
         </section>
 
         <!-- Cards with preview images -->
@@ -30,13 +37,13 @@
                 <h2>Multihead Model</h2>
                 <img src="multihead-preview.png" alt="Multihead Model Preview" class="model-preview">
                 <p>Explore the embeddings of the multihead model.</p>
-                <a href="multihead.html" class="button">View Multihead Model</a>
+                <a href="multihead.html" class="button">View Multihead Visualization</a>
             </div>
             <div class="card">
                 <h2>Default Model</h2>
                 <img src="default-preview.png" alt="Default Model Preview" class="model-preview">
                 <p>Explore the embeddings of the default model.</p>
-                <a href="default.html" class="button">View Default Model</a>
+                <a href="default.html" class="button">View Default Visualization</a>
             </div>
         </main>
 
