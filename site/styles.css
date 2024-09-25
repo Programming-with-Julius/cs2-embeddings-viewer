@@ -6,8 +6,8 @@ body, html {
     color: #ffffff;
     background-color: #121212;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    touch-action: none;         /* Prevent default touch actions */
-    overscroll-behavior: none;  /* Prevent pull-to-refresh */
+    touch-action: none; /* Prevent default touch actions */
+    overscroll-behavior: none; /* Prevent pull-to-refresh */
 }
 
 /* Container */
