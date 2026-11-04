@@ -23,8 +23,8 @@ This repository preserves the static assets and the two published embeddings vis
 
 ## Hosting
 
-The website lives in `site/` and requires no application server or build step. GitHub Actions publishes that directory to GitHub Pages. Internal links and assets are relative, so the site works at its project URL.
+The website lives in `site/` and requires no application server. GitHub Actions runs `scripts/build_site.py`, then publishes `_site/` to GitHub Pages. The build adds one binary image bundle per model, containing the original JPEG bytes. The viewer downloads this bundle instead of making 10,000 individual image requests, which avoids triggering the host's request-rate limit. Individual images remain available in the published archive too. Internal links and assets are relative, so the site works at its project URL.
 
-For a local preview, run `python -m http.server --directory site` and open `http://localhost:8000`.
+For a local preview, run `python scripts/build_site.py`, then `python -m http.server --directory _site` and open `http://localhost:8000`. The generated `_site/` directory must not already exist when building.
 
 Three.js and its controls are loaded from public CDNs. Third-party assets retain their existing notices.

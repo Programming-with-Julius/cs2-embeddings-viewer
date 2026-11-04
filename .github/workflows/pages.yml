@@ -43,10 +43,12 @@ jobs:
               raise SystemExit("Every author and committer must use the channel identity.")
       - name: Configure Pages
         uses: actions/configure-pages@v5
+      - name: Bundle model images
+        run: python scripts/build_site.py
       - name: Upload static site
         uses: actions/upload-pages-artifact@v4
         with:
-          path: site
+          path: _site
       - name: Deploy archive
         id: deployment
         uses: actions/deploy-pages@v4

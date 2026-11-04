@@ -165,34 +165,63 @@ function onWindowResize() {
 // Listen to the resize event to adjust the renderer and camera
 window.addEventListener('resize', onWindowResize);
 
-// Function to load all images from the JSON file
-function loadImages() {
+// Fetch each model in two requests, then decode the original images locally.
+async function loadImages() {
     const loader = new THREE.TextureLoader();
+    const status = document.createElement('div');
+    status.className = 'loading-status';
+    status.setAttribute('role', 'status');
+    status.textContent = 'Loading images…';
+    container.appendChild(status);
 
-    // Construct the JSON file path using the model_cp_name
-    const jsonFilePath = "embeddings/image_data_" + model_cp_name + ".json";
+    try {
+        const paths = [
+            'embeddings/image_data_' + model_cp_name + '.json',
+            'embeddings/image_bundle_' + model_cp_name + '.bin'
+        ];
+        const responses = await Promise.all(paths.map(path => fetch(path)));
+        if (responses.some(response => !response.ok)) {
+            throw new Error('Unable to download visualization data.');
+        }
+        const [data, bundle] = await Promise.all([responses[0].json(), responses[1].blob()]);
+        const headerLength = new DataView(await bundle.slice(0, 4).arrayBuffer()).getUint32(0, true);
+        if (headerLength <= 0 || headerLength > 1000000) {
+            throw new Error('Invalid image bundle header.');
+        }
+        const sizes = JSON.parse(await bundle.slice(4, 4 + headerLength).text());
+        if (sizes.length !== data.length || sizes.some(size => !Number.isSafeInteger(size) || size <= 0)
+            || sizes.reduce((sum, size) => sum + size, 4 + headerLength) !== bundle.size) {
+            throw new Error('Incomplete image bundle.');
+        }
 
-    // Fetch the JSON file that contains image data
-    fetch(jsonFilePath)
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(item => {
-                const imagePath = "embeddings/images_" + model_cp_name + "/" + item.path; // As per your request
-                const x = parseFloat(item.x) * 25;
-                const y = parseFloat(item.y) * 25;
-                const z = parseFloat(item.z) * 25;
-
-                // Load the image and create a sprite
-                const material = new THREE.SpriteMaterial({ map: loader.load(imagePath) });
-                const sprite = new THREE.Sprite(material);
-
-                // Set the sprite's position based on the coordinates in the JSON
-                sprite.position.set(x, y, z);
-
-                scene.add(sprite);
+        let offset = 4 + headerLength;
+        let loaded = 0;
+        data.forEach((item, index) => {
+            const image = bundle.slice(offset, offset + sizes[index], 'image/jpeg');
+            offset += sizes[index];
+            const imageUrl = URL.createObjectURL(image);
+            const texture = loader.load(imageUrl, () => {
+                URL.revokeObjectURL(imageUrl);
+                loaded += 1;
+                if (loaded === data.length) {
+                    status.remove();
+                } else if (loaded % 100 === 0) {
+                    status.textContent = 'Loading images… ' + loaded.toLocaleString() + ' / ' + data.length.toLocaleString();
+                }
+            }, undefined, error => {
+                URL.revokeObjectURL(imageUrl);
+                status.textContent = 'An image could not be loaded. Please reload this page.';
+                console.error('Error decoding image:', error);
             });
-        })
-        .catch(error => console.error('Error loading images:', error));
+            const material = new THREE.SpriteMaterial({ map: texture });
+            const sprite = new THREE.Sprite(material);
+            sprite.position.set(parseFloat(item.x) * 25, parseFloat(item.y) * 25, parseFloat(item.z) * 25);
+            scene.add(sprite);
+        });
+    } catch (error) {
+        status.textContent = 'Unable to load the visualization. Please reload this page.';
+        console.error('Error loading images:', error);
+    }
 }
 
 loadImages();
