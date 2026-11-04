@@ -1,0 +1,52 @@
+name: Publish archive to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out archive history
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Verify channel commit identities
+        shell: python
+        run: |
+          import subprocess
+          expected = [
+              "Programming with Julius",
+              "178651373+Programming-with-Julius@users.noreply.github.com",
+          ] * 2
+          rows = subprocess.check_output([
+              "git", "log", "HEAD", "--format=%an%x00%ae%x00%cn%x00%ce"
+          ], text=True).splitlines()
+          if any(row.split("\0") != expected for row in rows):
+              raise SystemExit("Every author and committer must use the channel identity.")
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload static site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+      - name: Deploy archive
+        id: deployment
+        uses: actions/deploy-pages@v4
